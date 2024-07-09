@@ -1,3 +1,6 @@
+<h4> I am developing a new plugin flutter_easy_dropdown that uses the latest version dropdown_search. I have added new features in this new plugin like a pagintion in dropdown list using netwok APIs.
+</h4>
+
 <h1 align="center">
   Flutter Easy DropdownSearch
   <br>
@@ -8,28 +11,12 @@
 </h4>
 
 <p align="center">
-  <a href="https://pub.dev/packages/dropdown_search">
-    <img src="https://img.shields.io/badge/build-passing-brightgreen"
-         alt="Build">
-  </a>
-  <a href="https://pub.dev/packages/dropdown_search"><img src="https://img.shields.io/pub/v/dropdown_search"></a>
-  <a href="https://www.buymeacoffee.com/SalimDev">
-    <img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat">
-  </a>
-</p>
-
-<p align="center">
-  <a href="#key-features">Key Features</a> •
-  <a href="https://github.com/salim-lachdhaf/searchable_dropdown/blob/master/example">Examples</a> •
-  <a href="#license">License</a>
-</p>
-
-<p align="center">
-  <img src="https://github.com/salim-lachdhaf/searchable_dropdown/blob/master/screenshots/example.gif?raw=true" alt="Dropdown search" />
+  <img src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/example.gif?raw=true" alt="Dropdown search" />
 </p>
 
 ## Key Features
 
+* Dropdown with pagination
 * Sync and/or Async items (online, offline, DB, ...)
 * Searchable dropdown
 * Three dropdown mode: Menu/ BottomSheet/ ModalBottomSheet / Dialog
@@ -43,30 +30,30 @@
 <table>
     <tr>
         <td>
-            <img height="254" src="https://github.com/salim-lachdhaf/searchable_dropdown/blob/master/screenshots/ex4.png?raw=true" alt="Dropdown search" />
+            <img height="254" src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex4.png?raw=true" alt="Dropdown search" />
         </td>
         <td>
-            <img height="254" src="https://github.com/salim-lachdhaf/searchable_dropdown/blob/master/screenshots/ex1.png?raw=true" alt="Dropdown search" />
+            <img height="254" src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex1.png?raw=true" alt="Dropdown search" />
         </td>
     </tr>
     <tr>
         <td>
-            <img height="254" src="https://github.com/salim-lachdhaf/searchable_dropdown/blob/master/screenshots/ex2.png?raw=true" alt="Dropdown search" />
+            <img height="254" src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex2.png?raw=true" alt="Dropdown search" />
         </td>
         <td>
-            <img height="254" src="https://github.com/salim-lachdhaf/searchable_dropdown/blob/master/screenshots/ex3.png?raw=true" alt="Dropdown search" />
+            <img height="254" src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex3.png?raw=true" alt="Dropdown search" />
         </td>
     </tr>
 </table>
 
 ## packages.yaml
 ```yaml
-dropdown_search: <lastest version>
+flutter_easy_dropdown: <lastest version>
 ```
 
 ## Import
 ```dart
-import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter_easy_dropdown/flutter_easy_dropdown.dart';
 ```
 
 
@@ -78,7 +65,7 @@ DropdownSearch<String>(
         showSelectedItems: true,
         disabledItemFn: (String s) => s.startsWith('I'),
     ),
-    items: ["Brazil", "Italia (Disabled)", "Tunisia", 'Canada'],
+    items: ["Brazil", "Italia (Disabled)", "US", 'Canada'],
     dropdownDecoratorProps: DropDownDecoratorProps(
         dropdownSearchDecoration: InputDecoration(
             labelText: "Menu mode",
@@ -90,7 +77,7 @@ DropdownSearch<String>(
 )
 
 DropdownSearch<String>.multiSelection(
-    items: ["Brazil", "Italia (Disabled)", "Tunisia", 'Canada'],
+    items: ["Brazil", "Italia (Disabled)", "London", 'Canada'],
     popupProps: PopupPropsMultiSelection.menu(
         showSelectedItems: true,
         disabledItemFn: (String s) => s.startsWith('I'),
@@ -182,69 +169,9 @@ DropdownSearch<UserModel>(
       print(data);
     },
 )
+
 ```
-## Layout customization
-You can customize the layout of the DropdownSearch and its items. [EXAMPLE](https://github.com/salim-lachdhaf/searchable_dropdown/tree/master/example#custom-layout-endpoint-example)
-
-Full documentation [here](https://pub.dev/documentation/dropdown_search/latest/dropdown_search/DropdownSearch-class.html)
-
-# Attention
-To use a template as an item type, and you don't want to use a custom function **itemAsString** and **compareFn** you **need** to implement **toString**, **equals** and **hashcode**, as shown below:
-
-
-```dart
-class UserModel {
-  final String id;
-  final DateTime createdAt;
-  final String name;
-  final String avatar;
-
-  UserModel({this.id, this.createdAt, this.name, this.avatar});
-
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-    return UserModel(
-      id: json["id"],
-      createdAt:
-          json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-      name: json["name"],
-      avatar: json["avatar"],
-    );
-  }
-
-  static List<UserModel> fromJsonList(List list) {
-    if (list == null) return null;
-    return list.map((item) => UserModel.fromJson(item)).toList();
-  }
-
-  ///this method will prevent the override of toString
-  String userAsString() {
-    return '#${this.id} ${this.name}';
-  }
-
-  ///this method will prevent the override of toString
-  bool userFilterByCreationDate(String filter) {
-    return this.createdAt.toString().contains(filter);
-  }
-
-  ///custom comparing function to check if two users are equal
-  bool isEqual(UserModel model) {
-    return this.id == model.id;
-  }
-
-  @override
-  String toString() => name;
-}
-```
-
-# [View more Examples](https://github.com/salim-lachdhaf/searchable_dropdown/tree/master/example)
 
 ## Support
 
-If this plugin was useful to you, helped you to deliver your app, saved you a lot of time, or you just want to support the project, I would be very grateful if you buy me a cup of coffee.
-
-<a href="https://www.buymeacoffee.com/SalimDev" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
-
-## License
-
-MIT
+If this plugin was useful to you, helped you to deliver your app, saved you a lot of time, or you just want to support the project.

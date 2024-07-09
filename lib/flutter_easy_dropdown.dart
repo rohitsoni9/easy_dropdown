@@ -1,4 +1,4 @@
-library easy_dropdown;
+library flutter_easy_dropdown;
 
 import 'dart:async';
 
@@ -14,7 +14,8 @@ export 'src/scrollbar_props.dart';
 export 'src/text_field_props.dart';
 
 typedef DropdownSearchOnFind<T> = Future<List<T>> Function(String text);
-typedef DropdownSearchOnLoadMore<T> = Future<List<T>> Function(String text, int offset);
+typedef DropdownSearchOnLoadMore<T> = Future<List<T>> Function(
+    String text, int offset);
 typedef DropdownSearchItemAsString<T> = String Function(T item);
 typedef DropdownSearchFilterFn<T> = bool Function(T item, String filter);
 typedef DropdownSearchCompareFn<T> = bool Function(T item, T? selectedItem);
@@ -28,8 +29,10 @@ typedef DropdownSearchPopupItemBuilder<T> = Widget Function(
 typedef DropdownSearchPopupItemEnabled<T> = bool Function(T item);
 typedef ErrorBuilder<T> = Widget Function(
     BuildContext context, String? searchEntry, dynamic exception);
-typedef EmptyBuilder<T> = Widget Function(BuildContext context, String? searchEntry);
-typedef LoadingBuilder<T> = Widget Function(BuildContext context, String? searchEntry);
+typedef EmptyBuilder<T> = Widget Function(
+    BuildContext context, String? searchEntry);
+typedef LoadingBuilder<T> = Widget Function(
+    BuildContext context, String? searchEntry);
 typedef IconButtonBuilder = Widget Function(BuildContext context);
 typedef BeforeChange<T> = Future<bool?> Function(T prevItem, T nextItem);
 
@@ -285,7 +288,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.dropdownSearchBaseStyle,
     this.dropdownSearchTextAlign,
     this.dropdownSearchTextAlignVertical,
-  })  : assert(!showSelectedItem || T == String || compareFn != null);
+  }) : assert(!showSelectedItem || T == String || compareFn != null);
 
   @override
   DropdownSearchState<T> createState() => DropdownSearchState<T>();

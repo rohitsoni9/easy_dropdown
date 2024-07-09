@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 import 'package:dio/dio.dart';
-import 'package:easy_dropdown/easy_dropdown.dart';
+import 'package:flutter_easy_dropdown/flutter_easy_dropdown.dart';
 import 'package:pagination_view/pagination_view.dart';
 
 import 'package:flutter/gestures.dart';
