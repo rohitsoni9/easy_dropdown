@@ -1,0 +1,21 @@
+name: easy_dropdown
+description: "A new Flutter package project."
+version: 1.0.0
+homepage: null
+
+environment:
+  sdk: ">=3.4.3 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  dio: ^5.5.0+1
+  flutter:
+    sdk: flutter
+  pagination_view: ^2.0.0
+
+dev_dependencies:
+  flutter_lints: ^3.0.0
+  flutter_test:
+    sdk: flutter
+    
+flutter: null
