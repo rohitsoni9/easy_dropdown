@@ -1,6 +1,6 @@
 name: flutter_easy_dropdown
 description: "Simple and robust Searchable Dropdown with item search feature, making it possible to use an offline item list or filtering URL for easy customization."
-version: 1.0.2
+version: 1.0.4
 homepage: "https://github.com/rohitsoni9/easy_dropdown"
 
 environment:
