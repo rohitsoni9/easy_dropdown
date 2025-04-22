@@ -1,0 +1,23 @@
+name: flutter_easy_dropdown_example
+description: Example app for flutter_easy_dropdown package
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.3 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_easy_dropdown:
+    path: ../
+
+  dio: any
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true 

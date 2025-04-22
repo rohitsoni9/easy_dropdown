@@ -16,7 +16,7 @@ class TextFieldProps {
     this.textAlignVertical,
     this.textDirection,
     this.readOnly = false,
-    this.toolbarOptions,
+    this.contextMenuBuilder,
     this.showCursor,
     this.autofocus = false,
     this.obscuringCharacter = '•',
@@ -53,13 +53,13 @@ class TextFieldProps {
     this.restorationId,
   }) : controller = controller ?? TextEditingController();
 
-  final TextEditingController? controller;
+  final TextEditingController controller;
 
   final SmartDashesType? smartDashesType;
 
   final SmartQuotesType? smartQuotesType;
 
-  final ToolbarOptions? toolbarOptions;
+  final Widget Function(BuildContext, EditableTextState)? contextMenuBuilder;
 
   final InputDecoration? decoration;
 
@@ -89,7 +89,7 @@ class TextFieldProps {
 
   final bool enableSuggestions;
 
-  final int? maxLines;
+  final int maxLines;
 
   final int? minLines;
 

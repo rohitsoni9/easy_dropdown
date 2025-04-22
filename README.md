@@ -1,177 +1,172 @@
-<h4> I am developing a new plugin flutter_easy_dropdown that uses the latest version dropdown_search. I have added new features in this new plugin like a pagintion in dropdown list using netwok APIs.
-</h4>
+# Flutter Easy DropdownSearch
 
-<h1 align="center">
-  Flutter Easy DropdownSearch
-  <br>
-</h1>
+[![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)](https://flutter.dev)
+[![pub package](https://img.shields.io/pub/v/flutter_easy_dropdown.svg)](https://pub.dev/packages/flutter_easy_dropdown)
+[![likes](https://img.shields.io/pub/likes/flutter_easy_dropdown)](https://pub.dev/packages/flutter_easy_dropdown/score)
+[![popularity](https://img.shields.io/pub/popularity/flutter_easy_dropdown)](https://pub.dev/packages/flutter_easy_dropdown/score)
+[![pub points](https://img.shields.io/pub/points/flutter_easy_dropdown)](https://pub.dev/packages/flutter_easy_dropdown/score)
 
-<h4 align="center">
-  <a href="https://flutter.io" target="_blank">Flutter</a> simple and robust Easy DropdownSearch with item search feature, making it possible to use an offline item list or filtering URL for easy customization with PAGINATION VIEW.
-</h4>
+A powerful and flexible Flutter dropdown search widget with pagination support, built on top of dropdown_search. This package provides an enhanced dropdown experience with features like network API integration, pagination, and customizable UI.
 
 <p align="center">
-  <img src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/example.gif?raw=true" alt="Dropdown search" />
+  <img src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/example.gif?raw=true" alt="Dropdown search demo" width="300" />
 </p>
 
-## Key Features
+## ✨ Features
 
-* Dropdown with pagination
-* Sync and/or Async items (online, offline, DB, ...)
-* Searchable dropdown
-* Three dropdown mode: Menu/ BottomSheet/ ModalBottomSheet / Dialog
-* Single & multi selection
-* Material dropdown
-* Easy customizable UI
-* Handle Light and Dark theme
-* Easy implementation into statelessWidget
-* Support multi level items
+- 🔄 **Pagination Support**: Load data in chunks for better performance
+- 🌐 **Network Integration**: Fetch data from APIs with ease
+- 🔍 **Searchable**: Built-in search functionality
+- 🎨 **Multiple Display Modes**:
+  - Menu
+  - BottomSheet
+  - ModalBottomSheet
+  - Dialog
+- ✅ **Selection Types**:
+  - Single selection
+  - Multi-selection
+- 🎯 **Customizable UI**: Match your app's theme
+- 🌓 **Theme Support**: Works with both light and dark themes
+- 📱 **StatelessWidget Support**: Easy implementation
+- 🏗️ **Multi-level Items**: Support for hierarchical data
 
-<table>
+## 📸 Screenshots
+
+<div align="center">
+  <table>
     <tr>
-        <td>
-            <img height="254" src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex4.png?raw=true" alt="Dropdown search" />
-        </td>
-        <td>
-            <img height="254" src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex1.png?raw=true" alt="Dropdown search" />
-        </td>
+      <td><img src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex4.png?raw=true" alt="Example 1" width="200"/></td>
+      <td><img src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex1.png?raw=true" alt="Example 2" width="200"/></td>
     </tr>
     <tr>
-        <td>
-            <img height="254" src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex2.png?raw=true" alt="Dropdown search" />
-        </td>
-        <td>
-            <img height="254" src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex3.png?raw=true" alt="Dropdown search" />
-        </td>
+      <td><img src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex2.png?raw=true" alt="Example 3" width="200"/></td>
+      <td><img src="https://github.com/rohitsoni9/easy_dropdown/blob/master/screenshots/ex3.png?raw=true" alt="Example 4" width="200"/></td>
     </tr>
-</table>
+  </table>
+</div>
 
-## packages.yaml
+## 📦 Installation
+
+Add the following to your `pubspec.yaml`:
+
 ```yaml
-flutter_easy_dropdown: <lastest version>
+dependencies:
+  flutter_easy_dropdown: ^latest_version
 ```
 
-## Import
+## 🚀 Quick Start
+
+### Basic Usage
+
 ```dart
 import 'package:flutter_easy_dropdown/flutter_easy_dropdown.dart';
-```
 
-
-## Simple implementation
-
-```dart
 DropdownSearch<String>(
-    popupProps: PopupProps.menu(
-        showSelectedItems: true,
-        disabledItemFn: (String s) => s.startsWith('I'),
+  popupProps: PopupProps.menu(
+    showSelectedItems: true,
+    disabledItemFn: (String s) => s.startsWith('I'),
+  ),
+  items: ["Brazil", "Italia (Disabled)", "US", 'Canada'],
+  dropdownDecoratorProps: DropDownDecoratorProps(
+    dropdownSearchDecoration: InputDecoration(
+      labelText: "Menu mode",
+      hintText: "country in menu mode",
     ),
-    items: ["Brazil", "Italia (Disabled)", "US", 'Canada'],
-    dropdownDecoratorProps: DropDownDecoratorProps(
-        dropdownSearchDecoration: InputDecoration(
-            labelText: "Menu mode",
-            hintText: "country in menu mode",
-        ),
-    ),
-    onChanged: print,
-    selectedItem: "Brazil",
+  ),
+  onChanged: print,
+  selectedItem: "Brazil",
 )
+```
 
+### Multi-Selection Example
+
+```dart
 DropdownSearch<String>.multiSelection(
-    items: ["Brazil", "Italia (Disabled)", "London", 'Canada'],
-    popupProps: PopupPropsMultiSelection.menu(
-        showSelectedItems: true,
-        disabledItemFn: (String s) => s.startsWith('I'),
-    ),
-    onChanged: print,
-    selectedItems: ["Brazil"],
+  items: ["Brazil", "Italia (Disabled)", "London", 'Canada'],
+  popupProps: PopupPropsMultiSelection.menu(
+    showSelectedItems: true,
+    disabledItemFn: (String s) => s.startsWith('I'),
+  ),
+  onChanged: print,
+  selectedItems: ["Brazil"],
 )
 ```
 
-## customize showed field (itemAsString)
+## 🔧 Advanced Usage
+
+### Custom Item Display
 
 ```dart
 DropdownSearch<UserModel>(
-    asyncItems: (String filter) => getData(filter),
-    itemAsString: (UserModel u) => u.userAsStringByName(),
-    onChanged: (UserModel? data) => print(data),
-    dropdownDecoratorProps: DropDownDecoratorProps(
-        dropdownSearchDecoration: InputDecoration(labelText: "User by name"),
-    ),
-)
-
-DropdownSearch<UserModel>(
-    asyncItems: (String filter) => getData(filter),
-    itemAsString: (UserModel u) => u.userAsStringById(),
-    onChanged: (UserModel? data) => print(data),
-    dropdownDecoratorProps: DropDownDecoratorProps(
-        dropdownSearchDecoration: InputDecoration(labelText: "User by id"),
-    ),
+  asyncItems: (String filter) => getData(filter),
+  itemAsString: (UserModel u) => u.userAsStringByName(),
+  onChanged: (UserModel? data) => print(data),
+  dropdownDecoratorProps: DropDownDecoratorProps(
+    dropdownSearchDecoration: InputDecoration(labelText: "User by name"),
+  ),
 )
 ```
 
-## customize Filter Function
-```dart
-DropdownSearch<UserModel>(
-    filterFn: (user, filter) =>
-    user.userFilterByCreationDate(filter),
-    asyncItems: (String filter) => getData(filter),
-    itemAsString: (UserModel u) => u.userAsStringByName(),
-    onChanged: (UserModel? data) => print(data),
-    dropdownDecoratorProps: DropDownDecoratorProps(
-        dropdownSearchDecoration: InputDecoration(labelText: "Name"),
-    ),
-)
-```
+### Custom Filter Function
 
-## customize Search Mode
 ```dart
 DropdownSearch<UserModel>(
-    popupProps: PopupProps.bottomSheet(),
+  filterFn: (user, filter) => user.userFilterByCreationDate(filter),
+  asyncItems: (String filter) => getData(filter),
+  itemAsString: (UserModel u) => u.userAsStringByName(),
+  onChanged: (UserModel? data) => print(data),
+  dropdownDecoratorProps: DropDownDecoratorProps(
     dropdownSearchDecoration: InputDecoration(labelText: "Name"),
-    asyncItems: (String filter) => getData(filter),
-    itemAsString: (UserModel u) => u.userAsString(),
-    onChanged: (UserModel? data) => print(data),
+  ),
 )
 ```
 
-## Validation
+### API Integration Example
+
+```dart
+DropdownSearch<UserModel>(
+  dropdownSearchDecoration: InputDecoration(labelText: "Name"),
+  asyncItems: (String filter) async {
+    var response = await Dio().get(
+      "http://5d85ccfb1e61af001471bf60.mockapi.io/user",
+      queryParameters: {"filter": filter},
+    );
+    var models = UserModel.fromJsonList(response.data);
+    return models;
+  },
+  onChanged: (UserModel? data) {
+    print(data);
+  },
+)
+```
+
+### Form Validation
+
 ```dart
 DropdownSearch(
-    items: ["Brazil", "France", "Tunisia", "Canada"],
-    dropdownSearchDecoration: InputDecoration(labelText: "Name"),
-    onChanged: print,
-    selectedItem: "Tunisia",
-    validator: (String? item) {
+  items: ["Brazil", "France", "Tunisia", "Canada"],
+  dropdownSearchDecoration: InputDecoration(labelText: "Name"),
+  onChanged: print,
+  selectedItem: "Tunisia",
+  validator: (String? item) {
     if (item == null)
       return "Required field";
     else if (item == "Brazil")
       return "Invalid item";
     else
       return null;
-    },
+  },
 )
 ```
 
+## 🤝 Contributing
 
-## Endpoint implementation (using [Dio package](https://pub.dev/packages/dio))
-```dart
-DropdownSearch<UserModel>(
-    dropdownSearchDecoration: InputDecoration(labelText: "Name"),
-    asyncItems: (String filter) async {
-        var response = await Dio().get(
-            "http://5d85ccfb1e61af001471bf60.mockapi.io/user",
-            queryParameters: {"filter": filter},
-        );
-        var models = UserModel.fromJsonList(response.data);
-        return models;
-    },
-    onChanged: (UserModel? data) {
-      print(data);
-    },
-)
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-```
+## 📄 License
 
-## Support
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-If this plugin was useful to you, helped you to deliver your app, saved you a lot of time, or you just want to support the project.
+## ⭐ Support
+
+If you find this package useful, please consider giving it a star on GitHub. Your support helps us maintain and improve the package!

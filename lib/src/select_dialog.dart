@@ -60,7 +60,7 @@ class SelectDialog<T> extends StatefulWidget {
   final FavoriteItemsBuilder<T>? favoriteItemBuilder;
 
   ///favorite items alignment
-  final MainAxisAlignment? favoriteItemsAlignment;
+  final MainAxisAlignment favoriteItemsAlignment;
 
   ///favorites item
   final FavoriteItems<T>? favoriteItems;
@@ -101,16 +101,15 @@ class SelectDialog<T> extends StatefulWidget {
     this.favoriteItems,
     this.showFavoriteItems = false,
     this.favoriteItemsAlignment = MainAxisAlignment.start,
-    this.searchBoxStyle,
     this.searchFieldProps,
-    this.scrollbarProps,
+    this.scrollbarProps, this.searchBoxStyle,
   });
 
   @override
-  _SelectDialogState<T> createState() => _SelectDialogState<T>();
+  SelectDialogState<T> createState() => SelectDialogState<T>();
 }
 
-class _SelectDialogState<T> extends State<SelectDialog<T>> {
+class SelectDialogState<T> extends State<SelectDialog<T>> {
   final FocusNode focusNode = FocusNode();
   final StreamController<List<T>> _itemsStream =
       StreamController<List<T>>.broadcast();
@@ -127,10 +126,7 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
 
     Future.delayed(
       Duration.zero,
-      () => manageItemsByFilter(
-          widget.searchFieldProps?.controller?.text ??
-              widget.searchBoxController?.text ??
-              '',
+      () => manageItemsByFilter(widget.searchFieldProps?.controller.text ?? '',
           isFistLoad: true),
     );
   }
@@ -138,7 +134,7 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (widget.searchFieldProps?.autofocus ?? widget.autoFocusSearchBox) {
+    if (widget.searchFieldProps?.autofocus ?? false) {
       FocusScope.of(context).requestFocus(focusNode);
     }
   }
@@ -186,7 +182,7 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
                           if (widget.onLoadMore != null) {
                             String filterText =
                                 (widget.searchFieldProps?.controller ??
-                                            widget.searchBoxController)
+                                            widget.searchFieldProps?.controller)
                                         ?.text ??
                                     '';
                             return widget.onLoadMore!(filterText, offset);
@@ -204,8 +200,7 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
                         if (widget.emptyBuilder != null) {
                           return widget.emptyBuilder!(
                             context,
-                            widget.searchFieldProps?.controller?.text ??
-                                widget.searchBoxController?.text,
+                            widget.searchFieldProps?.controller.text ?? '',
                           );
                         } else {
                           return const Center(
@@ -272,8 +267,7 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
     if (widget.errorBuilder != null) {
       return widget.errorBuilder!(
         context,
-        widget.searchFieldProps?.controller?.text ??
-            widget.searchBoxController?.text,
+        widget.searchFieldProps?.controller.text ?? '',
         error,
       );
     } else {
@@ -314,8 +308,7 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
             if (widget.loadingBuilder != null) {
               return widget.loadingBuilder!(
                 context,
-                widget.searchFieldProps?.controller?.text ??
-                    widget.searchBoxController?.text,
+                widget.searchFieldProps?.controller.text ?? '',
               );
             } else {
               return const Padding(
@@ -344,9 +337,9 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
       return _items.where((i) {
         if (widget.filterFn != null) {
           return (widget.filterFn!(i, filter));
-        } else if (i.toString().toLowerCase().contains(filter.toLowerCase()))
+        } else if (i.toString().toLowerCase().contains(filter.toLowerCase())) {
           return true;
-        else if (widget.itemAsString != null) {
+        } else if (widget.itemAsString != null) {
           return (widget.itemAsString!(i))
               .toLowerCase()
               .contains(filter.toLowerCase());
@@ -466,15 +459,13 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                style: widget.searchFieldProps?.style ?? widget.searchBoxStyle,
-                controller: widget.searchFieldProps?.controller ??
-                    widget.searchBoxController,
+                style: widget.searchFieldProps?.style,
+                controller: widget.searchFieldProps?.controller,
                 focusNode: focusNode,
                 onChanged: (f) => _debouncer(() {
                   _onTextChanged(f);
                 }),
                 decoration: widget.searchFieldProps?.decoration ??
-                    widget.searchBoxDecoration ??
                     InputDecoration(
                       hintText: widget.hintText,
                       border: const OutlineInputBorder(),
@@ -492,7 +483,6 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
                 textAlignVertical: widget.searchFieldProps?.textAlignVertical,
                 textDirection: widget.searchFieldProps?.textDirection,
                 readOnly: widget.searchFieldProps?.readOnly ?? false,
-                toolbarOptions: widget.searchFieldProps?.toolbarOptions,
                 showCursor: widget.searchFieldProps?.showCursor,
                 obscuringCharacter:
                     widget.searchFieldProps?.obscuringCharacter ?? '•',
@@ -565,8 +555,7 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
               constraints: BoxConstraints(minWidth: constraints.maxWidth),
               child: Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment:
-                      widget.favoriteItemsAlignment ?? MainAxisAlignment.start,
+                  mainAxisAlignment: widget.favoriteItemsAlignment,
                   children: favoriteItems
                       .map(
                         (f) => InkWell(

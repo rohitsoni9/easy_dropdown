@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import './popup_safearea.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+import './popup_safearea.dart';
 
 const Duration _kMenuDuration = Duration(milliseconds: 300);
 const double _kMenuCloseIntervalEnd = 2.0 / 3.0;
@@ -390,12 +391,14 @@ class _PopupMenuRouteLayout extends SingleChildLayoutDelegate {
     // edge of the screen in every direction.
     if (x < _kMenuScreenPadding) {
       x = _kMenuScreenPadding;
-    } else if (x + childSize.width > size.width - _kMenuScreenPadding)
+    } else if (x + childSize.width > size.width - _kMenuScreenPadding) {
       x = size.width - childSize.width - _kMenuScreenPadding;
+    }
     if (y < _kMenuScreenPadding) {
       y = _kMenuScreenPadding;
-    } else if (y + childSize.height > size.height - _kMenuScreenPadding)
+    } else if (y + childSize.height > size.height - _kMenuScreenPadding) {
       y = size.height - childSize.height - _kMenuScreenPadding;
+    }
     return Offset(x, y);
   }
 

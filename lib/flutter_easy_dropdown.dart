@@ -3,15 +3,16 @@ library flutter_easy_dropdown;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'src/popupMenu.dart';
+import 'src/popup_menu.dart';
 import 'src/popup_safearea.dart';
 import 'src/scrollbar_props.dart';
-import 'src/selectDialog.dart';
+import 'src/select_dialog.dart';
 import 'src/text_field_props.dart';
 
 export 'src/popup_safearea.dart';
 export 'src/scrollbar_props.dart';
 export 'src/text_field_props.dart';
+export 'src/select_dialog.dart';
 
 typedef DropdownSearchOnFind<T> = Future<List<T>> Function(String text);
 typedef DropdownSearchOnLoadMore<T> = Future<List<T>> Function(
@@ -41,7 +42,7 @@ typedef FavoriteItemsBuilder<T> = Widget Function(BuildContext context, T item);
 ///[items] are the original item from [items] or/and [onFind]
 typedef FavoriteItems<T> = List<T> Function(List<T> items);
 
-enum Mode { DIALOG, BOTTOM_SHEET, MENU }
+enum Mode { dialog, bottomSheet, menu }
 
 class DropdownSearch<T> extends StatefulWidget {
   ///DropDownSearch label
@@ -164,10 +165,6 @@ class DropdownSearch<T> extends StatefulWidget {
   ///custom dropdown icon button widget
   final Widget? dropDownButton;
 
-  //custom style of the searchBox
-  @Deprecated('Use `searchFieldProps` instead')
-  final TextStyle? searchBoxStyle;
-
   ///custom dropdown button widget builder
   final IconButtonBuilder? dropdownButtonBuilder;
 
@@ -214,7 +211,7 @@ class DropdownSearch<T> extends StatefulWidget {
   final FavoriteItems<T>? favoriteItems;
 
   ///favorite items alignment
-  final MainAxisAlignment? favoriteItemsAlignment;
+  final MainAxisAlignment favoriteItemsAlignment;
 
   ///set properties of popup safe area
   final PopupSafeArea popupSafeArea;
@@ -234,7 +231,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.validator,
     this.autoValidateMode = AutovalidateMode.disabled,
     this.onChanged,
-    this.mode = Mode.DIALOG,
+    this.mode = Mode.dialog,
     this.label,
     this.hint,
     this.isFilteredOnline = false,
@@ -280,7 +277,6 @@ class DropdownSearch<T> extends StatefulWidget {
     this.favoriteItems,
     this.showFavoriteItems = false,
     this.favoriteItemsAlignment = MainAxisAlignment.start,
-    this.searchBoxStyle,
     this.popupSafeArea = const PopupSafeArea(),
     this.searchFieldProps,
     this.scrollbarProps,
@@ -545,7 +541,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
 
   SelectDialog<T> _selectDialogInstance(T? data, {double? defaultHeight}) {
     return SelectDialog<T>(
-      searchBoxStyle: widget.searchBoxStyle,
+      searchFieldProps: widget.searchFieldProps,
       popupTitle: Material(child: widget.popupTitle),
       maxHeight: widget.maxHeight ?? defaultHeight,
       isFilteredOnline: widget.isFilteredOnline,
@@ -557,26 +553,19 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       showSearchBox: widget.showSearchBox,
       itemBuilder: widget.popupItemBuilder,
       selectedValue: data,
-      searchBoxDecoration: widget.searchBoxDecoration ??
-          const InputDecoration(
-              contentPadding: EdgeInsets.all(8), border: OutlineInputBorder()),
       onChanged: _handleOnChangeSelectedItem,
       showSelectedItem: widget.showSelectedItem,
       compareFn: widget.compareFn,
       emptyBuilder: widget.emptyBuilder,
       loadingBuilder: widget.loadingBuilder,
       errorBuilder: widget.errorBuilder,
-      autoFocusSearchBox: widget.autoFocusSearchBox,
       dialogMaxWidth: widget.dialogMaxWidth,
       itemDisabled: widget.popupItemDisabled,
-      searchBoxController:
-          widget.searchBoxController ?? TextEditingController(),
       searchDelay: widget.searchDelay,
       showFavoriteItems: widget.showFavoriteItems,
       favoriteItems: widget.favoriteItems,
       favoriteItemBuilder: widget.favoriteItemBuilder,
       favoriteItemsAlignment: widget.favoriteItemsAlignment,
-      searchFieldProps: widget.searchFieldProps,
       scrollbarProps: widget.scrollbarProps,
     );
   }
@@ -588,7 +577,9 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
     if (isFocused && !_isFocused.value) {
       FocusScope.of(context).unfocus();
       _isFocused.value = true;
-    } else if (!isFocused && _isFocused.value) _isFocused.value = false;
+    } else if (!isFocused && _isFocused.value) {
+      _isFocused.value = false;
+    }
   }
 
   ///handle on change value , if the validation is active , we validate the new selected item
@@ -622,9 +613,9 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
   Future<T?> _selectSearchMode(T? data) async {
     _handleFocus(true);
     T? selectedItem;
-    if (widget.mode == Mode.MENU) {
+    if (widget.mode == Mode.menu) {
       selectedItem = await _openMenu(data);
-    } else if (widget.mode == Mode.BOTTOM_SHEET) {
+    } else if (widget.mode == Mode.bottomSheet) {
       selectedItem = await _openBottomSheet(data);
     } else {
       selectedItem = await _openSelectDialog(data);
